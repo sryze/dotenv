@@ -3,25 +3,34 @@
 #include <vector>
 #include "dotenv.h"
 
-#ifdef _WIN32
-    #ifndef WIN32_LEAN_AND_MEAN
-        #define WIN32_LEAN_AND_MEAN
-    #endif
-    #include <windows.h>
-#endif
-
 namespace dotenv {
 
 std::string get(const std::string &name, const std::string &default_value)
 {
+#ifdef _WIN32
+    size_t size = 0;
+    getenv_s(&size, nullptr, 0, name.c_str());
+    if (size > 0) {
+        std::string value(size - 1, '\0');
+        getenv_s(&size, value.data(), size, name.c_str());
+        return value;
+    } else {
+        return default_value;
+    }
+#else
     const char *value = getenv(name.c_str());
-    return value != nullptr ? std::string(value) : default_value;
+    if (value != nullptr) {
+        return std::string(value);
+    } else {
+        return default_value;
+    }
+#endif
 }
 
 void set(const std::string &name, const std::string &value)
 {
 #ifdef _WIN32
-    auto var = name + "=" + value;
+    auto var = name + '=' + value;
     (void)_putenv(var.c_str());
 #else
     setenv(name.c_str(), value.c_str(), true);
@@ -31,7 +40,8 @@ void set(const std::string &name, const std::string &value)
 void unset(const std::string &name)
 {
 #ifdef _WIN32
-    SetEnvironmentVariableA(name.c_str(), NULL);
+    auto var = name + '=';
+    (void)_putenv(var.c_str());
 #else
     unsetenv(name.c_str());
 #endif
