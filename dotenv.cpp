@@ -12,7 +12,7 @@ std::string get(const std::string &name, const std::string &default_value)
     getenv_s(&size, nullptr, 0, name.c_str());
     if (size > 0) {
         std::string value(size - 1, '\0');
-        getenv_s(&size, value.data(), size, name.c_str());
+        getenv_s(&size, &value[0], size, name.c_str());
         return value;
     } else {
         return default_value;
