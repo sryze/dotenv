@@ -3,11 +3,6 @@ dotenv
 
 Example code:
 
-```sh
-FOO=hello
-BAR=world
-```
-
 ```c++
 #include <iostream>
 #include "dotenv.h"
@@ -24,4 +19,11 @@ int main() {
         std::cout << "BAR = " << bar << std::endl;
     }
 }
+```
+
+In your .env file:
+
+```sh
+FOO=hello
+BAR=world
 ```
