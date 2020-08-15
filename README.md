@@ -1,7 +1,12 @@
 dotenv
 ======
 
-Example:
+Example code:
+
+```sh
+FOO=hello
+BAR=world
+```
 
 ```c++
 #include <iostream>
