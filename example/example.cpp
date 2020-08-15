@@ -1,9 +1,3 @@
-dotenv
-======
-
-Example:
-
-```c++
 #include <iostream>
 #include "dotenv.h"
 
@@ -19,4 +13,3 @@ int main() {
         std::cout << "BAR = " << bar << std::endl;
     }
 }
-```
