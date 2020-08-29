@@ -12,18 +12,11 @@ matrix:
       compiler: gcc
     - os: osx
       compiler: clang
-
-addons:
-  apt:
-    packages:
-      - cmake
-  brew:
-    packages:
-      - cmake
+    - os: windows
 
 before_script:
   - mkdir build && cd build
   - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS='-std=c++11'
 
 script:
-  - make
+  - cmake --build .
