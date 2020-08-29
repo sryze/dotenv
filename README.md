@@ -1,6 +1,8 @@
 dotenv
 ======
 
+[![Build Status](https://travis-ci.org/sryze/dotenv.svg?branch=master)](https://travis-ci.org/sryze/dotenv)
+
 Example code:
 
 ```c++
